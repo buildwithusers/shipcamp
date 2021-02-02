@@ -581,8 +581,9 @@ video {
 }
 
 h1 {
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-weight: 700;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
   margin-bottom: 1rem;
   --tw-text-opacity: 1;
   color: rgba(30, 64, 175, var(--tw-text-opacity));
