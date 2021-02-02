@@ -11,7 +11,7 @@
     "copy:html": "cp ./src/index.html ./docs/index.html",
     "watch:css": "onchange 'src/main.css' -- npm run build:css",
     "server": "browser-sync start --server 'src' --ss 'docs' --files 'src/**/*.html' 'docs/*.css'",
-    "preserve": "npm run build:css",
+    "preserve": "rm -rf ./docs && npm run build:css",
     "serve": "npm-run-all --parallel server watch:*"
   },
   "repository": {
