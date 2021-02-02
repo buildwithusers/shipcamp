@@ -2,10 +2,10 @@
   "name": "shipcamp",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.html",
+  "main": "docs/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production npx tailwindcss-cli@latest build ./src/main.css -o ./dist/main.css"
+    "build": "NODE_ENV=production npx tailwindcss-cli@latest build ./src/main.css -o ./docs/main.css"
   },
   "repository": {
     "type": "git",
