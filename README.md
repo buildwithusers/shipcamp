@@ -1,22 +1,19 @@
-# Shipcamp
+# shipcamp
 
-## Requirements
-
-Use Node 12+ (I switched to 14)
-
-## Setup
-
-Simple static website with [Tailwind CSS](https://tailwindcss.com/docs).
-
-## Commands
-
-See `package.json`, mainly:
-
+## Project setup
 ```
-npm run serve   // local dev with auto reload
-npm run build   // build, commit & push to deploy
+yarn install
 ```
 
-## Deployment
+### Compiles and hot-reloads for development
+```
+yarn serve
+```
 
-The thing is hosted on GitHub Pages. Everything is served through the `./docs` folder (GitHub limitation, can't change the name).
+### Compiles and minifies for production
+```
+yarn build
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
