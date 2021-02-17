@@ -1,22 +1,58 @@
 <template>
   <figure>
-    <video src="scenes/sample-scene-forrest.mp4"></video>
+    <video ref="vid" :src="currentSrc" @ended="handleEnded"></video>
+
+    {{ currentScene }}
+    {{ currentSrc }}
   </figure>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 
+const SCENES = [
+  {
+    type: "video",
+    src: "scenes/sample-scene-girl-book.mp4",
+  },
+  {
+    type: "video",
+    src: "scenes/sample-scene-street.mp4",
+  },
+  {
+    type: "video",
+    src: "scenes/sample-scene-forrest.mp4",
+  },
+  {
+    type: "video",
+    src: "scenes/sample-scene-mountain-valley.mp4",
+  },
+];
+
 export default Vue.extend({
   data() {
     return {
-      txt: "Here comes the player",
       $video: null,
+      currentScene: 0,
     };
   },
+  computed: {
+    currentSrc() {
+      return SCENES[this.currentScene].src;
+    },
+  },
+  methods: {
+    handleEnded(e) {
+      if (this.currentScene + 1 < SCENES.length) {
+        this.currentScene = this.currentScene + 1;
+        this.$nextTick(() => {
+          this.$refs.vid.play();
+        });
+      }
+    },
+  },
   mounted() {
-    this.$video = this.$el.getElementsByTagName("video")[0];
-    this.$video.play();
+    this.$refs.vid.play();
   },
 });
 </script>
