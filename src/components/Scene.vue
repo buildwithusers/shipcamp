@@ -14,8 +14,5 @@ export default Vue.component('Scene', {});
     height: 560px;
     background-color: #2E3541;
     color: white;
-    display: flex;
-    align-items: center;
-    justify-self: center;
   }
 </style>
