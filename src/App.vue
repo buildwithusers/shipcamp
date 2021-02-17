@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container mx-auto my-8">
-    <h1>Build a Unsplash-powered weather app</h1>
+    <h1>Build an Unsplash-powered weather app</h1>
 
     <section>
       <CodePenScene/>
