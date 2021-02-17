@@ -12,7 +12,9 @@ export default Vue.component('Scene', {});
   .self {
     width: 896px;
     height: 560px;
+    overflow: hidden;
     background-color: #2E3541;
     color: white;
+    user-select: none;
   }
 </style>

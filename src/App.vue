@@ -5,6 +5,7 @@
     <section>
       <CodePenScene/>
       <DemoScene/>
+      <EndpointScene/>
     </section>
 
     <header class="flex space-x-2">
@@ -19,11 +20,12 @@
 import Player from "./Player.vue";
 import CodePenScene from './components/CodePenScene';
 import DemoScene from './components/DemoScene';
+import EndpointScene from './components/EndpointScene';
 
 
 export default {
   name: "App",
-  components: { Player, CodePenScene, DemoScene },
+  components: { Player, CodePenScene, DemoScene, EndpointScene },
 };
 </script>
 
