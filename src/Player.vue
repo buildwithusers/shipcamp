@@ -1,7 +1,13 @@
 <template>
   <div>
-    <figure id="player-container" class="bg-black">
-      <video ref="vid" class="" @ended="handleEnded">
+    <figure id="player-container" class="bg-black" @click="handleClick">
+      <video
+        ref="vid"
+        class=""
+        @play="handlePlay"
+        @pause="handlePause"
+        @ended="handleEnded"
+      >
         <source :src="currentSrc" />
       </video>
     </figure>
@@ -40,6 +46,7 @@ export default Vue.extend({
     return {
       $video: null,
       currentScene: 0,
+      playing: false,
     };
   },
   computed: {
@@ -48,13 +55,30 @@ export default Vue.extend({
     },
   },
   methods: {
+    handleClick(e) {
+      if (this.playing) {
+        this.$refs.vid.pause();
+        return;
+      }
+      this.$refs.vid.play();
+    },
+    handlePlay(e) {
+      this.playing = true;
+    },
+    handlePause(e) {
+      this.playing = false;
+    },
     handleEnded(e) {
       if (this.currentScene + 1 < SCENES.length) {
         this.currentScene = this.currentScene + 1;
         this.$nextTick(() => {
+          this.$refs.vid.load();
           this.$refs.vid.play();
         });
+        return;
       }
+
+      this.playing = false;
     },
   },
   mounted() {
