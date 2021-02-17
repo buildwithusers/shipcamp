@@ -1,10 +1,16 @@
 <template>
-  <figure>
-    <video ref="vid" :src="currentSrc" @ended="handleEnded"></video>
+  <div>
+    <figure id="player-container" class="bg-black">
+      <video ref="vid" class="" @ended="handleEnded">
+        <source :src="currentSrc" />
+      </video>
+    </figure>
 
-    {{ currentScene }}
-    {{ currentSrc }}
-  </figure>
+    <hr />
+    <h2>debug</h2>
+    <p>{{ currentScene }}</p>
+    <p>{{ currentSrc }}</p>
+  </div>
 </template>
 
 <script lang="ts">
@@ -70,5 +76,18 @@ video::-webkit-media-controls-enclosure {
 
 video:focus {
   outline: none;
+}
+
+#player-container {
+  width: 100%;
+  padding-top: 62.5%;
+  position: relative;
+}
+
+#player-container video {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
 }
 </style>
