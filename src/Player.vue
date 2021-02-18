@@ -31,7 +31,7 @@
         v-for="sceneNo in totalScenes"
         :key="sceneNo"
       >
-        <a class="block" @click="loadScene(sceneNo - 1)"
+        <a class="block" @click="loadScene(sceneNo - 1, false)"
           ><img
             class="border-2 border-gray-100 rounded"
             :class="{ 'border-gray-200 shadow-lg': sceneNo - 1 === sceneIndex }"
@@ -39,11 +39,6 @@
         /></a>
       </li>
     </nav>
-
-    <hr class="my-8" />
-    <h2>debug</h2>
-    <p>{{ sceneIndex }}</p>
-    <p>{{ scene.src }}</p>
   </div>
 </template>
 
@@ -60,7 +55,7 @@ const SCENES = [
   {
     type: "component",
     component: DemoScene,
-    timeout: 4000,
+    timeout: 5000,
   },
   {
     type: "video",
@@ -130,10 +125,10 @@ export default Vue.extend({
 
       this.loadScene(this.sceneIndex + 1);
     },
-    loadScene(no) {
-      if (no >= SCENES.length) throw "Scene does not exist";
+    loadScene(index, withTimer = true) {
+      if (index >= SCENES.length) throw "Scene does not exist";
 
-      this.sceneIndex = no;
+      this.sceneIndex = index;
       clearTimeout(this.sceneTimer);
 
       if (this.sceneType === "video") {
@@ -144,13 +139,13 @@ export default Vue.extend({
         return;
       }
 
-      if (this.sceneType === "component") {
+      if (this.sceneType === "component" && withTimer) {
         this.sceneTimer = setTimeout(() => {
           this.handleSceneEnded();
         }, this.scene.timeout);
-
-        this.playing = false;
       }
+
+      this.playing = false;
     },
   },
   mounted() {
@@ -200,15 +195,5 @@ video:focus {
 #component-container > * {
   width: 100%;
   height: 100%;
-}
-
-/* nav#scenes img {
-  width: 104px;
-  height: 65px;
-} */
-
-nav#scenes::after {
-  content: "";
-  flex: 1 1;
 }
 </style>
