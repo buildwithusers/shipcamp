@@ -13,7 +13,8 @@
       <v-select @input="query" :clearable="false" :options="options" v-model="orientation"></v-select>
     </header>
     <main>
-      <img style="max-height: 400px;" :src="imageSrc">
+      <p v-if="loading" style="color: white;">loading...</p>
+      <img v-else style="max-height: 400px;" :src="imageSrc">
     </main>
   </Scene>
 </template>
@@ -32,17 +33,20 @@ export default {
       keyword: 'sunny',
       orientation: 'portrait',
       options: ['landscape','portrait','squarish'],
-      imageSrc: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMDU4MTh8MHwxfHNlYXJjaHwyfHxiZWFjaHxlbnwwfDF8fA&ixlib=rb-1.2.1&q=80&w=1080'
+      imageSrc: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMDU4MTh8MHwxfHNlYXJjaHwyfHxiZWFjaHxlbnwwfDF8fA&ixlib=rb-1.2.1&q=80&w=1080',
+      loading: false,
     };
   },
   methods: {
     async query() {
+      this.loading = true;
       const URI_BASE = 'https://untitled-ihuuousf3gce.runkit.sh/';
       const QUERY = `?query=${this.keyword}&orientation=${this.orientation}`;
       const URI = URI_BASE + QUERY;
       const res = await axios.get(URI);
       const randomIndex = Math.floor(Math.random() * 10);
       this.imageSrc = res.data.results[randomIndex].urls.regular;
+      this.loading = false;
     }
   },
 };
