@@ -1,11 +1,11 @@
 <template>
   <div id="app" class="container mx-auto my-8">
-    <h1>Build an Unsplash-powered weather app</h1>
+    <h1>Scenes</h1>
 
-    <section class="flex space-x-4">
-      <Player
-        class="preview border-2 border-gray-100 w-full h-screen rounded-md"
-      />
+    <section>
+      <CodePenScene />
+      <DemoScene />
+      <EndpointScene />
     </section>
   </div>
 </template>
