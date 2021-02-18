@@ -156,7 +156,7 @@ export default Vue.extend({
       this.playing = true;
     },
     handleTimeUpdate(e) {
-      const seconds = Math.floor(e.target.currentTime);
+      const seconds = Math.round(e.target.currentTime);
       // This is needed because sometimes timeupdate event fires after scene switch
       if (this.scene.type !== "video") return;
       this.updateCurrentTime(seconds);
