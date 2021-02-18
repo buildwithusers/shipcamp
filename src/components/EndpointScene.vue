@@ -32,10 +32,10 @@ export default {
   data() {
     return {
       selected: '',
-      keyword: 'sunny',
+      keyword: 'smile',
       orientation: 'landscape',
       orientationOptions: ['landscape','portrait','squarish'],
-      imageSrc: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMDU4MTh8MHwxfHNlYXJjaHwyfHxiZWFjaHxlbnwwfDF8fA&ixlib=rb-1.2.1&q=80&w=1080',
+      imageSrc: 'https://images.unsplash.com/photo-1555170629-9240c8e7df1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMDU4MTh8MHwxfHNlYXJjaHw3fHxzbWlsZXxlbnwwfDB8fA&ixlib=rb-1.2.1&q=80&w=1080',
       loading: false,
     };
   },
