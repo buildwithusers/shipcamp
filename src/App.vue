@@ -1,9 +1,7 @@
 <template>
-  <div id="app" class="container mx-auto my-8">
-    <h1>Build an Unsplash-powered weather app</h1>
-
-    <section class="flex space-x-4" style="max-width: 900px;">
-      <Player class="preview border-2 border-gray-100 w-full rounded-md" />
+  <div id="app" class="container mx-auto px-12">
+    <section class="flex max-w-5xl">
+      <Player class="" />
     </section>
   </div>
 </template>

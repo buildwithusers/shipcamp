@@ -1,6 +1,6 @@
 <template>
   <div>
-    <figure id="player-container" class="bg-black">
+    <figure id="player-container" class="bg-black rounded-b-lg">
       <video
         @click="togglePlayPause"
         v-if="sceneType === 'video'"
@@ -36,6 +36,10 @@
       <PlayPauseButton :playing="playing" @click="togglePlayPause" />
       <span id="spacer" class="flex-1" />
     </nav>
+
+    <header id="titlebar">
+      <h1>Build an Unsplash-powered weather app</h1>
+    </header>
 
     <nav id="scenes" class="flex flex-wrap -mx-2">
       <li
