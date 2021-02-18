@@ -3,6 +3,7 @@
     <h1>Scenes</h1>
 
     <section>
+      <SignupScene />
       <EndpointScene />
       <DemoScene />
       <CodePenScene />
@@ -15,10 +16,11 @@ import Player from "./Player.vue";
 import CodePenScene from "./components/CodePenScene";
 import DemoScene from "./components/DemoScene";
 import EndpointScene from "./components/EndpointScene";
+import SignupScene from "./components/SignupScene";
 
 export default {
   name: "App",
-  components: { Player, CodePenScene, DemoScene, EndpointScene },
+  components: { Player, CodePenScene, DemoScene, EndpointScene, SignupScene },
 };
 </script>
 

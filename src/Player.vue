@@ -69,6 +69,7 @@
 import Vue from "vue";
 import DemoScene from "./components/DemoScene";
 import EndpointScene from "./components/EndpointScene";
+import SignupScene from "./components/SignupScene";
 import PlayPauseButton from "./components/PlayPauseButton.vue";
 
 const SCENES = [
@@ -113,6 +114,11 @@ const SCENES = [
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-06-email-b.jpg",
     lengthSeconds: 27,
+  },
+  {
+    type: "component",
+    component: SignupScene,
+    lengthSeconds: 5,
   },
 ];
 
