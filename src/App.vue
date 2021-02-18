@@ -1,8 +1,6 @@
 <template>
-  <div id="app" class="container mx-auto px-12">
-    <section class="flex max-w-5xl">
-      <Player class="" />
-    </section>
+  <div id="app" class="container mx-auto px-12 w-full flex">
+    <Player class="max-w-5xl" />
   </div>
 </template>
 
@@ -25,8 +23,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 </style>

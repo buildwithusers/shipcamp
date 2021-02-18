@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full">
     <figure
       id="player-container"
       class="bg-black w-full rounded-b-lg relative overflow-hidden"
