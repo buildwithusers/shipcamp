@@ -25,9 +25,24 @@
       <PlayPauseButton :playing="playing" @click="togglePlayPause" />
     </nav>
 
+    <nav id="scenes" class="flex flex-wrap -mx-2">
+      <li
+        class="px-2 my-2 w-1/6 list-none"
+        v-for="sceneNo in totalScenes"
+        :key="sceneNo"
+      >
+        <a class="block" @click="loadScene(sceneNo - 1)"
+          ><img
+            class="border-2 border-gray-100 rounded"
+            :class="{ 'border-gray-200 shadow-lg': sceneNo - 1 === sceneIndex }"
+            :src="`https://via.placeholder.com/208x130.jpg?text=Scene+${sceneNo}`"
+        /></a>
+      </li>
+    </nav>
+
     <hr class="my-8" />
     <h2>debug</h2>
-    <p>{{ sceneNo }}</p>
+    <p>{{ sceneIndex }}</p>
     <p>{{ scene.src }}</p>
   </div>
 </template>
@@ -67,17 +82,18 @@ export default Vue.extend({
   },
   data() {
     return {
-      sceneNo: 0,
+      sceneIndex: 0,
+      totalScenes: SCENES.length,
       playing: false,
       sceneTimer: null,
     };
   },
   computed: {
     scene() {
-      return SCENES[this.sceneNo];
+      return SCENES[this.sceneIndex];
     },
     sceneType() {
-      return SCENES[this.sceneNo].type;
+      return SCENES[this.sceneIndex].type;
     },
   },
   methods: {
@@ -107,17 +123,17 @@ export default Vue.extend({
       this.playing = true;
     },
     handleSceneEnded(e) {
-      if (this.sceneNo + 1 == SCENES.length) {
+      if (this.sceneIndex + 1 == SCENES.length) {
         this.playing = false;
         return;
       }
 
-      this.loadScene(this.sceneNo + 1);
+      this.loadScene(this.sceneIndex + 1);
     },
     loadScene(no) {
       if (no >= SCENES.length) throw "Scene does not exist";
 
-      this.sceneNo = no;
+      this.sceneIndex = no;
       clearTimeout(this.sceneTimer);
 
       if (this.sceneType === "video") {
@@ -184,5 +200,15 @@ video:focus {
 #component-container > * {
   width: 100%;
   height: 100%;
+}
+
+/* nav#scenes img {
+  width: 104px;
+  height: 65px;
+} */
+
+nav#scenes::after {
+  content: "";
+  flex: 1 1;
 }
 </style>

@@ -8,6 +8,10 @@ h1 {
   @apply text-2xl font-bold text-blue-900 mb-4 text-left;
 }
 
+a {
+  cursor: pointer;
+}
+
 button, button:focus {
   outline: none;
 }
