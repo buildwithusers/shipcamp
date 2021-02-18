@@ -109,15 +109,10 @@ const SCENES = [
     lengthSeconds: 15,
   },
   {
-    type: "video",
-    src: "scenes/sample-scene-mountain-valley.mp4",
-    thumb:
-      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-06-email-b.jpg",
-    lengthSeconds: 27,
-  },
-  {
     type: "component",
     component: SignupScene,
+    thumb:
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-06-email-b.jpg",
     lengthSeconds: 5,
   },
 ];
