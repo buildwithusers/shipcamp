@@ -3,9 +3,9 @@
     <h1>Scenes</h1>
 
     <section>
-      <CodePenScene />
-      <DemoScene />
       <EndpointScene />
+      <DemoScene />
+      <CodePenScene />
     </section>
   </div>
 </template>

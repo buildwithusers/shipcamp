@@ -15,7 +15,6 @@ export default Vue.component("Scene", {});
   display: flex;
   overflow: hidden;
   background-color: #2e3541;
-  color: white;
   user-select: none;
 }
 </style>
