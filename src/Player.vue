@@ -21,8 +21,17 @@
       <p v-else>Unsupported scene type</p>
     </figure>
 
-    <nav id="controls" class="bg-gray-900 h-7 flex align-middle px-4">
+    <nav
+      id="controls"
+      class="bg-gray-900 h-7 flex items-center justify-between px-4"
+    >
+      <time class="text-sm flex-1 text-left">
+        <span id="currentTime" class="font-bold text-white">0:10</span>
+        <span class="text-white">&thinsp;/&thinsp;</span>
+        <span id="totalTime" class="text-white">5:20</span>
+      </time>
       <PlayPauseButton :playing="playing" @click="togglePlayPause" />
+      <span id="spacer" class="flex-1" />
     </nav>
 
     <nav id="scenes" class="flex flex-wrap -mx-2">
