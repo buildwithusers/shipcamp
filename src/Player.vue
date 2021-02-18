@@ -2,26 +2,27 @@
   <div>
     <figure id="player-container" class="bg-black" @click="togglePlay">
       <video
-        v-if="currentType === 'video'"
-        ref="vid"
+        v-if="sceneType === 'video'"
+        ref="video"
         class=""
         @play="handlePlay"
         @pause="handlePause"
         @ended="handleEnded"
       >
-        <source :src="currentSrc" />
+        <source :src="scene.src" />
       </video>
-      <component v-else :is="currentComponent" />
+      <component v-else-if="sceneType === 'component'" :is="currentComponent" />
+      <p v-else>Unsupported scene type</p>
     </figure>
 
     <nav id="controls" class="bg-gray-900 h-7 flex align-middle px-4">
       <PlayPauseButton :playing="playing" @click="togglePlay" />
     </nav>
 
-    <hr />
+    <hr class="my-8" />
     <h2>debug</h2>
-    <p>{{ currentScene }}</p>
-    <p>{{ currentSrc }}</p>
+    <p>{{ sceneNo }}</p>
+    <p>{{ scene.src }}</p>
   </div>
 </template>
 
@@ -59,29 +60,28 @@ export default Vue.extend({
   },
   data() {
     return {
-      $video: null,
-      currentScene: 0,
+      sceneNo: 0,
       playing: false,
     };
   },
   computed: {
-    currentSrc() {
-      return SCENES[this.currentScene].src || null;
+    scene() {
+      return SCENES[this.sceneNo];
     },
-    currentType() {
-      return SCENES[this.currentScene].type;
+    sceneType() {
+      return SCENES[this.sceneNo].type;
     },
     currentComponent() {
-      return SCENES[this.currentScene].component || null;
+      return SCENES[this.sceneNo].component || null;
     },
   },
   methods: {
     togglePlay() {
       if (this.playing) {
-        this.$refs.vid.pause();
+        this.$refs.video.pause();
         return;
       }
-      this.$refs.vid.play();
+      this.$refs.video.play();
     },
     handlePlay(e) {
       this.playing = true;
@@ -90,18 +90,18 @@ export default Vue.extend({
       this.playing = false;
     },
     handleEnded(e) {
-      if (this.currentScene + 1 == SCENES.length) {
+      if (this.sceneNo + 1 == SCENES.length) {
         this.playing = false;
         return;
       }
 
-      this.currentScene = this.currentScene + 1;
-      const scene = SCENES[this.currentScene];
+      this.sceneNo = this.sceneNo + 1;
+      const scene = SCENES[this.sceneNo];
 
       if (scene.type === "video") {
         this.$nextTick(() => {
-          this.$refs.vid.load();
-          this.$refs.vid.play();
+          this.$refs.video.load();
+          this.$refs.video.play();
         });
         return;
       }
@@ -114,7 +114,7 @@ export default Vue.extend({
     },
   },
   mounted() {
-    this.$refs.vid.play();
+    this.$refs.video.play();
   },
 });
 </script>

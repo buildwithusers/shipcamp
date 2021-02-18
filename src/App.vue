@@ -3,9 +3,7 @@
     <h1>Build an Unsplash-powered weather app</h1>
 
     <section class="flex space-x-4">
-      <Player
-        class="preview border-2 border-gray-100 w-full h-screen rounded-md"
-      />
+      <Player class="preview border-2 border-gray-100 w-full rounded-md" />
     </section>
   </div>
 </template>
