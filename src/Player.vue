@@ -2,6 +2,7 @@
   <div>
     <figure id="player-container" class="bg-black" @click="togglePlay">
       <video
+        v-if="currentType === 'video'"
         ref="vid"
         class=""
         @play="handlePlay"
@@ -10,6 +11,7 @@
       >
         <source :src="currentSrc" />
       </video>
+      <component v-else :is="currentComponent" />
     </figure>
     <div id="controls" class="bg-gray-900 h-7 flex align-middle px-4">
       <button id="play-pause" @click="togglePlay">
@@ -52,11 +54,16 @@
 
 <script lang="ts">
 import Vue from "vue";
+import DemoScene from "./components/DemoScene";
 
 const SCENES = [
   {
     type: "video",
     src: "scenes/sample-scene-girl-book.mp4",
+  },
+  {
+    type: "component",
+    component: DemoScene,
   },
   {
     type: "video",
@@ -82,7 +89,13 @@ export default Vue.extend({
   },
   computed: {
     currentSrc() {
-      return SCENES[this.currentScene].src;
+      return SCENES[this.currentScene].src || null;
+    },
+    currentType() {
+      return SCENES[this.currentScene].type;
+    },
+    currentComponent() {
+      return SCENES[this.currentScene].component || null;
     },
   },
   methods: {
@@ -100,8 +113,15 @@ export default Vue.extend({
       this.playing = false;
     },
     handleEnded(e) {
-      if (this.currentScene + 1 < SCENES.length) {
-        this.currentScene = this.currentScene + 1;
+      if (this.currentScene + 1 == SCENES.length) {
+        this.playing = false;
+        return;
+      }
+
+      this.currentScene = this.currentScene + 1;
+      const scene = SCENES[this.currentScene];
+
+      if (scene.type === "video") {
         this.$nextTick(() => {
           this.$refs.vid.load();
           this.$refs.vid.play();
@@ -109,7 +129,11 @@ export default Vue.extend({
         return;
       }
 
-      this.playing = false;
+      if (scene.type === "component") {
+        setTimeout(() => {
+          this.handleEnded();
+        }, 4000);
+      }
     },
   },
   mounted() {
