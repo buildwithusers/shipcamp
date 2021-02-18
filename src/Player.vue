@@ -54,6 +54,7 @@
 <script>
 import Vue from "vue";
 import DemoScene from "./components/DemoScene";
+import EndpointScene from "./components/EndpointScene";
 import PlayPauseButton from "./components/PlayPauseButton.vue";
 
 const SCENES = [
@@ -69,6 +70,11 @@ const SCENES = [
   {
     type: "video",
     src: "scenes/sample-scene-forrest.mp4",
+  },
+  {
+    type: "component",
+    component: EndpointScene,
+    timeout: 5000,
   },
   {
     type: "video",
