@@ -53,8 +53,8 @@
       >
         <a class="block" @click="loadScene(sceneNo - 1, false)"
           ><img
-            class="border-2 border-gray-100 rounded"
-            :class="{ 'border-gray-200 shadow-lg': sceneNo - 1 === sceneIndex }"
+            class="border border-gray-300 rounded hover:shadow-lg transition-all"
+            :active="sceneNo - 1 === sceneIndex"
             :src="SCENES[sceneNo - 1].thumb"
         /></a>
       </li>
@@ -280,5 +280,10 @@ nav#controls {
     rgba(0, 0, 0, 0.55),
     rgba(0, 0, 0, 0.75)
   );
+}
+
+nav#scenes img[active] {
+  @apply border-blue-500 border-4 shadow-lg;
+  padding: 2px;
 }
 </style>
