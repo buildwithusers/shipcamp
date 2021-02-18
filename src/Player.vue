@@ -1,22 +1,28 @@
 <template>
   <div>
-    <figure id="player-container" class="bg-black" @click="togglePlay">
+    <figure id="player-container" class="bg-black">
       <video
+        @click="togglePlayPause"
         v-if="sceneType === 'video'"
         ref="video"
         class=""
         @play="handlePlay"
-        @pause="handlePause"
-        @ended="handleEnded"
+        @ended="handleSceneEnded"
       >
         <source :src="scene.src" />
       </video>
-      <component v-else-if="sceneType === 'component'" :is="currentComponent" />
+      <div
+        v-else-if="sceneType === 'component'"
+        id="component-container"
+        @click="pauseComponentScene"
+      >
+        <component :is="scene.component" />
+      </div>
       <p v-else>Unsupported scene type</p>
     </figure>
 
     <nav id="controls" class="bg-gray-900 h-7 flex align-middle px-4">
-      <PlayPauseButton :playing="playing" @click="togglePlay" />
+      <PlayPauseButton :playing="playing" @click="togglePlayPause" />
     </nav>
 
     <hr class="my-8" />
@@ -26,7 +32,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import DemoScene from "./components/DemoScene";
 import PlayPauseButton from "./components/PlayPauseButton.vue";
@@ -39,14 +45,15 @@ const SCENES = [
   {
     type: "component",
     component: DemoScene,
-  },
-  {
-    type: "video",
-    src: "scenes/sample-scene-street.mp4",
+    timeout: 4000,
   },
   {
     type: "video",
     src: "scenes/sample-scene-forrest.mp4",
+  },
+  {
+    type: "video",
+    src: "scenes/sample-scene-street.mp4",
   },
   {
     type: "video",
@@ -62,6 +69,7 @@ export default Vue.extend({
     return {
       sceneNo: 0,
       playing: false,
+      sceneTimer: null,
     };
   },
   computed: {
@@ -71,34 +79,48 @@ export default Vue.extend({
     sceneType() {
       return SCENES[this.sceneNo].type;
     },
-    currentComponent() {
-      return SCENES[this.sceneNo].component || null;
-    },
   },
   methods: {
-    togglePlay() {
-      if (this.playing) {
-        this.$refs.video.pause();
-        return;
+    togglePlayPause(e) {
+      if (!this.playing && this.sceneType === "video") {
+        this.$refs.video.play();
       }
-      this.$refs.video.play();
+
+      if (this.playing && this.sceneType === "video") {
+        this.$refs.video.pause();
+        this.playing = false;
+      }
+
+      if (!this.playing && this.sceneType === "component") {
+        this.handleSceneEnded();
+      }
+
+      if (this.playing && this.sceneType === "component") {
+        this.pauseComponentScene(e);
+      }
+    },
+    pauseComponentScene(e) {
+      clearTimeout(this.sceneTimer);
+      this.playing = false;
     },
     handlePlay(e) {
       this.playing = true;
     },
-    handlePause(e) {
-      this.playing = false;
-    },
-    handleEnded(e) {
+    handleSceneEnded(e) {
       if (this.sceneNo + 1 == SCENES.length) {
         this.playing = false;
         return;
       }
 
-      this.sceneNo = this.sceneNo + 1;
-      const scene = SCENES[this.sceneNo];
+      this.loadScene(this.sceneNo + 1);
+    },
+    loadScene(no) {
+      if (no >= SCENES.length) throw "Scene does not exist";
 
-      if (scene.type === "video") {
+      this.sceneNo = no;
+      clearTimeout(this.sceneTimer);
+
+      if (this.sceneType === "video") {
         this.$nextTick(() => {
           this.$refs.video.load();
           this.$refs.video.play();
@@ -106,15 +128,20 @@ export default Vue.extend({
         return;
       }
 
-      if (scene.type === "component") {
-        setTimeout(() => {
-          this.handleEnded();
-        }, 4000);
+      if (this.sceneType === "component") {
+        this.sceneTimer = setTimeout(() => {
+          this.handleSceneEnded();
+        }, this.scene.timeout);
+
+        this.playing = false;
       }
     },
   },
   mounted() {
-    this.$refs.video.play();
+    if (this.sceneType === "video") {
+      // Doesn't work in some browsers as they block autoplay before user interaction
+      this.$refs.video.play();
+    }
   },
 });
 </script>
@@ -136,6 +163,7 @@ video:focus {
 
 #player-container {
   width: 100%;
+  display: flex;
   padding-top: 62.5%;
   position: relative;
 }
@@ -147,5 +175,14 @@ video:focus {
   left: 0;
   right: 0;
   top: 0;
+}
+
+#component-container {
+  display: flex;
+}
+
+#component-container > * {
+  width: 100%;
+  height: 100%;
 }
 </style>
