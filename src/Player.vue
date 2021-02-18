@@ -79,7 +79,7 @@ const SCENES = [
   {
     type: "component",
     component: EndpointScene,
-    timeout: 5000,
+    lengthSeconds: 5000,
   },
   {
     type: "video",
