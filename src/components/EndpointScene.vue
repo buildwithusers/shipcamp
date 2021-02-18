@@ -7,10 +7,13 @@
       <b>Unsplash API endpoint:</b>
       <span>https://api.unsplash.com/search/photos?</span>
       <span class="blue">query=</span>
-      <input class="blue editable" type="text" placeholder="sunny" v-model="keyword" @keyup.enter="query">
+      <input class="blue editable" type="text" placeholder="sunny" v-model="keyword" @blur="query" @keyup.enter="query">
       <span class="blue">&orientation=</span>
-      <span class="blue editable">portrait <chevron-down-icon size="0.8x" style="display: inline;"></chevron-down-icon></span>
-      <v-select @input="query" :clearable="false" :options="options" v-model="orientation"></v-select>
+      <span class="editable">
+        <select name="orientationPicker" @change="query" v-model="orientation">
+          <option v-for="option in orientationOptions" :value="option" :key="option">{{option}}</option>
+        </select>
+      </span>
     </header>
     <main>
       <p v-if="loading" style="color: white;">loading...</p>
@@ -22,17 +25,16 @@
 <script>
 import Scene from './Scene';
 import { ChevronDownIcon } from 'vue-feather-icons';
-import vSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
 import axios from 'axios';
 
 export default {
-  components: { Scene, ChevronDownIcon, vSelect },
+  components: { Scene, ChevronDownIcon },
   data() {
     return {
+      selected: '',
       keyword: 'sunny',
-      orientation: 'portrait',
-      options: ['landscape','portrait','squarish'],
+      orientation: 'landscape',
+      orientationOptions: ['landscape','portrait','squarish'],
       imageSrc: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMDU4MTh8MHwxfHNlYXJjaHwyfHxiZWFjaHxlbnwwfDF8fA&ixlib=rb-1.2.1&q=80&w=1080',
       loading: false,
     };
@@ -91,6 +93,12 @@ export default {
     border: 1px solid #2D6AE1;
     user-select: none;
   }
+  .editable > select {
+    border:0px;
+    outline:0px;
+    background-color: transparent;
+    color: #2D6AE1;
+  }
   main {
     height: auto;
     flex: 1;
@@ -99,5 +107,4 @@ export default {
     justify-content: center;
     padding: 1em;
   }
-
 </style>
