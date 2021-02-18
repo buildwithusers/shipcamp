@@ -7,6 +7,7 @@
         ref="video"
         class=""
         @play="handlePlay"
+        @timeupdate="handleTimeUpdate"
         @ended="handleSceneEnded"
       >
         <source :src="scene.src" />
@@ -154,6 +155,20 @@ export default Vue.extend({
     handlePlay(e) {
       this.playing = true;
     },
+    handleTimeUpdate(e) {
+      const seconds = Math.floor(e.target.currentTime);
+      // This is needed because sometimes timeupdate event fires after scene switch
+      if (this.scene.type !== "video") return;
+      this.updateCurrentTime(seconds);
+    },
+    updateCurrentTime(currentSceneTimeElapsed = 0) {
+      const elapsedTimePreviousScenes = SCENES.slice(0, this.sceneIndex)
+        .filter((s) => s.type === "video")
+        .map((s) => s.lengthSeconds)
+        .reduce((a, b) => a + b, 0);
+      this.currentTimeSeconds =
+        elapsedTimePreviousScenes + currentSceneTimeElapsed;
+    },
     handleSceneEnded(e) {
       if (this.sceneIndex + 1 == SCENES.length) {
         this.playing = false;
@@ -183,6 +198,7 @@ export default Vue.extend({
       }
 
       this.playing = false;
+      this.updateCurrentTime();
     },
   },
   mounted() {
