@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container mx-auto px-12 flex">
-    <Player class="max-w-5xl mx-auto" />
+    <Player class="max-w-4xl mx-auto" />
   </div>
 </template>
 
