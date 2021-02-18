@@ -4,17 +4,18 @@
   </div>
 </template>
 <script>
-import Vue from 'vue';
+import Vue from "vue";
 
-export default Vue.component('Scene', {});
+export default Vue.component("Scene", {});
 </script>
 <style scoped>
-  .self {
-    width: 896px;
-    height: 560px;
-    overflow: hidden;
-    background-color: #2E3541;
-    color: white;
-    user-select: none;
-  }
+.self {
+  width: 896px;
+  height: 560px;
+  display: flex;
+  overflow: hidden;
+  background-color: #2e3541;
+  color: white;
+  user-select: none;
+}
 </style>

@@ -139,8 +139,10 @@ video:focus {
   position: relative;
 }
 
-#player-container video {
+#player-container > * {
   position: absolute;
+  width: 100%;
+  height: 100%;
   left: 0;
   right: 0;
   top: 0;
