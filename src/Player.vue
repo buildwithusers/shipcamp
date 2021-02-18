@@ -27,7 +27,7 @@
 
       <nav
         id="controls"
-        class="absolute bottom-0 w-full h-20 pt-4 flex items-center justify-between px-4 select-none"
+        class="absolute bottom-0 w-full h-20 pt-4 flex items-center justify-between px-4 rounded-b-lg select-none"
       >
         <time class="text-sm flex-1 text-left text-gray-200">
           <span id="currentTime" class="font-bold">{{
