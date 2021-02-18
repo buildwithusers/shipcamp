@@ -26,9 +26,11 @@
       class="bg-gray-900 h-7 flex items-center justify-between px-4"
     >
       <time class="text-sm flex-1 text-left">
-        <span id="currentTime" class="font-bold text-white">0:10</span>
+        <span id="currentTime" class="font-bold text-white">{{
+          currentTimePretty
+        }}</span>
         <span class="text-white">&thinsp;/&thinsp;</span>
-        <span id="totalTime" class="text-white">5:20</span>
+        <span id="totalTime" class="text-white">{{ totalLengthPretty }}</span>
       </time>
       <PlayPauseButton :playing="playing" @click="togglePlayPause" />
       <span id="spacer" class="flex-1" />
@@ -61,15 +63,17 @@ const SCENES = [
   {
     type: "video",
     src: "scenes/sample-scene-girl-book.mp4",
+    lengthSeconds: 8,
   },
   {
     type: "component",
     component: DemoScene,
-    timeout: 5000,
+    lengthSeconds: 5,
   },
   {
     type: "video",
     src: "scenes/sample-scene-forrest.mp4",
+    lengthSeconds: 10,
   },
   {
     type: "component",
@@ -79,12 +83,24 @@ const SCENES = [
   {
     type: "video",
     src: "scenes/sample-scene-street.mp4",
+    lengthSeconds: 15,
   },
   {
     type: "video",
     src: "scenes/sample-scene-mountain-valley.mp4",
+    lengthSeconds: 27,
   },
 ];
+
+const totalLengthSeconds = SCENES.filter((s) => s.type === "video")
+  .map((s) => s.lengthSeconds)
+  .reduce((a, b) => a + b, 0);
+
+function prettySeconds(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins}:${("0" + secs).slice(-2)}`;
+}
 
 export default Vue.extend({
   components: {
@@ -96,6 +112,9 @@ export default Vue.extend({
       totalScenes: SCENES.length,
       playing: false,
       sceneTimer: null,
+      totalLengthSeconds,
+      totalLengthPretty: prettySeconds(totalLengthSeconds),
+      currentTimeSeconds: 0,
     };
   },
   computed: {
@@ -104,6 +123,9 @@ export default Vue.extend({
     },
     sceneType() {
       return SCENES[this.sceneIndex].type;
+    },
+    currentTimePretty() {
+      return prettySeconds(this.currentTimeSeconds);
     },
   },
   methods: {
@@ -157,7 +179,7 @@ export default Vue.extend({
       if (this.sceneType === "component" && withTimer) {
         this.sceneTimer = setTimeout(() => {
           this.handleSceneEnded();
-        }, this.scene.timeout);
+        }, this.scene.lengthSeconds * 1000);
       }
 
       this.playing = false;
