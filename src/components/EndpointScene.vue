@@ -39,14 +39,16 @@ export default {
   },
   methods: {
     async query() {
-      this.loading = true;
-      const URI_BASE = 'https://untitled-ihuuousf3gce.runkit.sh/';
-      const QUERY = `?query=${this.keyword}&orientation=${this.orientation}`;
-      const URI = URI_BASE + QUERY;
-      const res = await axios.get(URI);
-      const randomIndex = Math.floor(Math.random() * 10);
-      this.imageSrc = res.data.results[randomIndex].urls.regular;
-      this.loading = false;
+      if (!this.loading) {
+        this.loading = true;
+        const URI_BASE = 'https://untitled-ihuuousf3gce.runkit.sh/';
+        const QUERY = `?query=${this.keyword}&orientation=${this.orientation}`;
+        const URI = URI_BASE + QUERY;
+        const res = await axios.get(URI);
+        const randomIndex = Math.floor(Math.random() * 10);
+        this.imageSrc = res.data.results[randomIndex].urls.regular;
+        this.loading = false;
+      }
     }
   },
 };
