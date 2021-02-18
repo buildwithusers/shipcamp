@@ -2,7 +2,7 @@
   <div id="app" class="container mx-auto my-8">
     <h1>Build an Unsplash-powered weather app</h1>
 
-    <section class="flex space-x-4">
+    <section class="flex space-x-4" style="max-width: 900px;">
       <Player class="preview border-2 border-gray-100 w-full rounded-md" />
     </section>
   </div>
@@ -27,5 +27,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
