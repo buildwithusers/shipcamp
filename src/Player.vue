@@ -13,37 +13,10 @@
       </video>
       <component v-else :is="currentComponent" />
     </figure>
-    <div id="controls" class="bg-gray-900 h-7 flex align-middle px-4">
-      <button id="play-pause" @click="togglePlay">
-        <svg
-          v-if="!playing"
-          class="text-gray-100 w-5 h-5 hover:text-gray-300"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-            clip-rule="evenodd"
-          />
-        </svg>
 
-        <svg
-          v-else
-          class="text-gray-100 w-5 h-5 hover:text-gray-300"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </button>
-    </div>
+    <nav id="controls" class="bg-gray-900 h-7 flex align-middle px-4">
+      <PlayPauseButton :playing="playing" @click="togglePlay" />
+    </nav>
 
     <hr />
     <h2>debug</h2>
@@ -55,6 +28,7 @@
 <script lang="ts">
 import Vue from "vue";
 import DemoScene from "./components/DemoScene";
+import PlayPauseButton from "./components/PlayPauseButton.vue";
 
 const SCENES = [
   {
@@ -80,6 +54,9 @@ const SCENES = [
 ];
 
 export default Vue.extend({
+  components: {
+    PlayPauseButton,
+  },
   data() {
     return {
       $video: null,
