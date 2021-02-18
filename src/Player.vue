@@ -41,8 +41,11 @@
       </nav>
     </figure>
 
-    <header id="titlebar">
-      <h1>Build an Unsplash-powered weather app</h1>
+    <header id="titlebar" class="my-4 text-left">
+      <h1 class="">Build an Unsplash-powered weather app</h1>
+      <p class="text-gray-400 text-sm font-medium">
+        Created by Gino Mangnoesing • 21 views
+      </p>
     </header>
 
     <nav id="scenes" class="flex flex-wrap -mx-2">
