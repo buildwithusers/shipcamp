@@ -1,11 +1,13 @@
 <template>
   <div>
-    <figure id="player-container" class="bg-black rounded-b-lg">
+    <figure
+      id="player-container"
+      class="bg-black rounded-b-lg relative overflow-hidden"
+    >
       <video
         @click="togglePlayPause"
         v-if="sceneType === 'video'"
         ref="video"
-        class=""
         @play="handlePlay"
         @timeupdate="handleTimeUpdate"
         @ended="handleSceneEnded"
@@ -20,22 +22,22 @@
         <component :is="scene.component" />
       </div>
       <p v-else>Unsupported scene type</p>
-    </figure>
 
-    <nav
-      id="controls"
-      class="bg-gray-900 h-7 flex items-center justify-between px-4"
-    >
-      <time class="text-sm flex-1 text-left">
-        <span id="currentTime" class="font-bold text-white">{{
-          currentTimePretty
-        }}</span>
-        <span class="text-white">&thinsp;/&thinsp;</span>
-        <span id="totalTime" class="text-white">{{ totalLengthPretty }}</span>
-      </time>
-      <PlayPauseButton :playing="playing" @click="togglePlayPause" />
-      <span id="spacer" class="flex-1" />
-    </nav>
+      <nav
+        id="controls"
+        class="absolute bottom-0 w-full h-20 pt-4 flex items-center justify-between px-4 select-none"
+      >
+        <time class="text-sm flex-1 text-left text-gray-200">
+          <span id="currentTime" class="font-bold">{{
+            currentTimePretty
+          }}</span>
+          <span class="">&thinsp;/&thinsp;</span>
+          <span id="totalTime" class="">{{ totalLengthPretty }}</span>
+        </time>
+        <PlayPauseButton :playing="playing" @click="togglePlayPause" />
+        <span id="spacer" class="flex-1" />
+      </nav>
+    </figure>
 
     <header id="titlebar">
       <h1>Build an Unsplash-powered weather app</h1>
@@ -236,7 +238,8 @@ video:focus {
   position: relative;
 }
 
-#player-container > * {
+#player-container > video,
+#player-container > #component-container {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -252,5 +255,15 @@ video:focus {
 #component-container > * {
   width: 100%;
   height: 100%;
+}
+
+nav#controls {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.75)
+  );
 }
 </style>
