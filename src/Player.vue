@@ -2,9 +2,10 @@
   <div>
     <figure
       id="player-container"
-      class="bg-black rounded-b-lg relative overflow-hidden"
+      class="bg-black w-full rounded-b-lg relative overflow-hidden"
     >
       <video
+        class="w-full"
         @click="togglePlayPause"
         v-if="sceneType === 'video'"
         ref="video"
@@ -17,6 +18,7 @@
       <div
         v-else-if="sceneType === 'component'"
         id="component-container"
+        class="w-full"
         @click="pauseComponentScene"
       >
         <component :is="scene.component" />
@@ -53,7 +55,7 @@
           ><img
             class="border-2 border-gray-100 rounded"
             :class="{ 'border-gray-200 shadow-lg': sceneNo - 1 === sceneIndex }"
-            :src="`https://via.placeholder.com/208x130.jpg?text=Scene+${sceneNo}`"
+            :src="SCENES[sceneNo - 1].thumb"
         /></a>
       </li>
     </nav>
@@ -70,31 +72,43 @@ const SCENES = [
   {
     type: "video",
     src: "scenes/sample-scene-girl-book.mp4",
+    thumb:
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-01-intro-show-result.jpg",
     lengthSeconds: 8,
   },
   {
     type: "component",
+    thumb:
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-02-play-with-demo.jpg",
     component: DemoScene,
     lengthSeconds: 5,
   },
   {
     type: "video",
     src: "scenes/sample-scene-forrest.mp4",
+    thumb:
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-03-unsplash-api.jpg",
     lengthSeconds: 10,
   },
   {
     type: "component",
+    thumb:
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-04-unsplash-api-handson.jpg",
     component: EndpointScene,
     lengthSeconds: 5,
   },
   {
     type: "video",
     src: "scenes/sample-scene-street.mp4",
+    thumb:
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-05-show-result-thank.jpg",
     lengthSeconds: 15,
   },
   {
     type: "video",
     src: "scenes/sample-scene-mountain-valley.mp4",
+    thumb:
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-06-email-b.jpg",
     lengthSeconds: 27,
   },
 ];
@@ -122,6 +136,7 @@ export default Vue.extend({
       totalLengthSeconds,
       totalLengthPretty: prettySeconds(totalLengthSeconds),
       currentTimeSeconds: 0,
+      SCENES,
     };
   },
   computed: {
