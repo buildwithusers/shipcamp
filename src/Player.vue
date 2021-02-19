@@ -22,6 +22,13 @@
         @click="pauseComponentScene"
       >
         <component :is="scene.component" />
+        <div
+          v-if="sceneTimer"
+          class="scene-timer-bar w-full bg-white absolute top-0 border-t border-white"
+          :style="{ '--scenetimer-duration': scene.lengthSeconds }"
+        >
+          <div class="scene-timer-bar-inner" />
+        </div>
       </div>
       <p v-else>Unsupported scene type</p>
 
@@ -175,6 +182,7 @@ export default Vue.extend({
     },
     pauseComponentScene(e) {
       clearTimeout(this.sceneTimer);
+      this.sceneTimer = null;
       this.playing = false;
     },
     handlePlay(e) {
@@ -207,6 +215,7 @@ export default Vue.extend({
 
       this.sceneIndex = index;
       clearTimeout(this.sceneTimer);
+      this.sceneTimer = null;
 
       if (this.sceneType === "video") {
         this.$nextTick(() => {
@@ -269,6 +278,26 @@ video:focus {
 
 #component-container {
   display: flex;
+}
+
+@keyframes scenetimer {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+#component-container > .scene-timer-bar {
+  height: 3px;
+}
+
+.scene-timer-bar-inner {
+  height: 2px;
+  width: 0%;
+  background-color: #74a3ff;
+  animation: scenetimer calc(var(--scenetimer-duration) * 1s) linear;
 }
 
 #component-container > * {
