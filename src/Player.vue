@@ -22,6 +22,13 @@
         @click="pauseComponentScene"
       >
         <component :is="scene.component" />
+        <div
+          v-if="sceneTimer && !scene.hideTimer"
+          class="scene-timer-bar w-full bg-white absolute top-0 border-t border-b border-white"
+          :style="{ '--scenetimer-duration': scene.lengthSeconds }"
+        >
+          <div class="scene-timer-bar-inner" />
+        </div>
       </div>
       <p v-else>Unsupported scene type</p>
 
@@ -85,7 +92,7 @@ const SCENES = [
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-02-play-with-demo.jpg",
     component: DemoScene,
-    lengthSeconds: 5,
+    lengthSeconds: 9,
   },
   {
     type: "video",
@@ -99,7 +106,7 @@ const SCENES = [
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-04-unsplash-api-handson.jpg",
     component: EndpointScene,
-    lengthSeconds: 5,
+    lengthSeconds: 9,
   },
   {
     type: "video",
@@ -113,7 +120,8 @@ const SCENES = [
     component: SignupScene,
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-06-email-b.jpg",
-    lengthSeconds: 5,
+    lengthSeconds: Infinity,
+    hideTimer: true,
   },
 ];
 
@@ -175,6 +183,7 @@ export default Vue.extend({
     },
     pauseComponentScene(e) {
       clearTimeout(this.sceneTimer);
+      this.sceneTimer = null;
       this.playing = false;
     },
     handlePlay(e) {
@@ -207,6 +216,7 @@ export default Vue.extend({
 
       this.sceneIndex = index;
       clearTimeout(this.sceneTimer);
+      this.sceneTimer = null;
 
       if (this.sceneType === "video") {
         this.$nextTick(() => {
@@ -269,6 +279,26 @@ video:focus {
 
 #component-container {
   display: flex;
+}
+
+@keyframes scenetimer {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+#component-container > .scene-timer-bar {
+  height: 5px;
+}
+
+.scene-timer-bar-inner {
+  height: 3px;
+  width: 0%;
+  background-color: #74a3ff;
+  animation: scenetimer calc(var(--scenetimer-duration) * 1s) linear;
 }
 
 #component-container > * {
