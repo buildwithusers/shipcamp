@@ -21,7 +21,7 @@
         class="w-full"
         @click="pauseComponentScene"
       >
-        <component :is="scene.component" />
+        <component :is="scene.component" @interact="pauseComponentScene" />
         <div
           v-if="sceneTimer && !scene.hideTimer"
           class="scene-timer-bar w-full bg-white absolute top-0 border-t border-b border-white"
