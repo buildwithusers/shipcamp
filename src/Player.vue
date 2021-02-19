@@ -226,7 +226,11 @@ export default Vue.extend({
         return;
       }
 
-      if (this.sceneType === "component" && withTimer) {
+      if (
+        this.sceneType === "component"
+        && withTimer
+        && this.scene.lengthSeconds !== Infinity
+      ) {
         let ticks = 0;
 
         this.sceneTimer = setInterval(() => {
