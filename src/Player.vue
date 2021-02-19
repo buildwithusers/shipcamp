@@ -24,7 +24,7 @@
         <component :is="scene.component" />
         <div
           v-if="sceneTimer && !scene.hideTimer"
-          class="scene-timer-bar w-full bg-white absolute top-0 border-t border-white"
+          class="scene-timer-bar w-full bg-white absolute top-0 border-t border-b border-white"
           :style="{ '--scenetimer-duration': scene.lengthSeconds }"
         >
           <div class="scene-timer-bar-inner" />
@@ -291,11 +291,11 @@ video:focus {
 }
 
 #component-container > .scene-timer-bar {
-  height: 3px;
+  height: 5px;
 }
 
 .scene-timer-bar-inner {
-  height: 2px;
+  height: 3px;
   width: 0%;
   background-color: #74a3ff;
   animation: scenetimer calc(var(--scenetimer-duration) * 1s) linear;
