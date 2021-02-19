@@ -29,7 +29,7 @@
       <div v-if="showTooltip" class="tooltip">
         <div class="pointer"></div>
         <p>Use this 👆 bar to play around with the API endpoint yourself.</p>
-        <a @click="showTooltip = false">Continue the video</a>
+        <a @click="showTooltip = false">Got it!</a>
       </div>
       <p v-if="loading" style="color: white">loading...</p>
       <img v-else style="max-height: 400px" :src="imageSrc" />
