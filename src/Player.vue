@@ -23,7 +23,7 @@
       >
         <component :is="scene.component" />
         <div
-          v-if="sceneTimer"
+          v-if="sceneTimer && !scene.hideTimer"
           class="scene-timer-bar w-full bg-white absolute top-0 border-t border-white"
           :style="{ '--scenetimer-duration': scene.lengthSeconds }"
         >
@@ -92,7 +92,7 @@ const SCENES = [
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-02-play-with-demo.jpg",
     component: DemoScene,
-    lengthSeconds: 5,
+    lengthSeconds: 9,
   },
   {
     type: "video",
@@ -106,7 +106,7 @@ const SCENES = [
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-04-unsplash-api-handson.jpg",
     component: EndpointScene,
-    lengthSeconds: 5,
+    lengthSeconds: 9,
   },
   {
     type: "video",
@@ -120,7 +120,8 @@ const SCENES = [
     component: SignupScene,
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-06-email-b.jpg",
-    lengthSeconds: 5,
+    lengthSeconds: Infinity,
+    hideTimer: true,
   },
 ];
 
