@@ -125,7 +125,7 @@ const SCENES = [
   },
 ];
 
-const totalLengthSeconds = SCENES.filter((s) => s.type === "video")
+const totalLengthSeconds = SCENES.filter((s) => s.lengthSeconds !== Infinity)
   .map((s) => s.lengthSeconds)
   .reduce((a, b) => a + b, 0);
 
@@ -182,7 +182,7 @@ export default Vue.extend({
       }
     },
     pauseComponentScene(e) {
-      clearTimeout(this.sceneTimer);
+      clearInterval(this.sceneTimer);
       this.sceneTimer = null;
       this.playing = false;
     },
@@ -197,7 +197,7 @@ export default Vue.extend({
     },
     updateCurrentTime(currentSceneTimeElapsed = 0) {
       const elapsedTimePreviousScenes = SCENES.slice(0, this.sceneIndex)
-        .filter((s) => s.type === "video")
+        .filter((s) => s.lengthSeconds !== Infinity)
         .map((s) => s.lengthSeconds)
         .reduce((a, b) => a + b, 0);
       this.currentTimeSeconds =
@@ -215,7 +215,7 @@ export default Vue.extend({
       if (index >= SCENES.length) throw "Scene does not exist";
 
       this.sceneIndex = index;
-      clearTimeout(this.sceneTimer);
+      clearInterval(this.sceneTimer);
       this.sceneTimer = null;
 
       if (this.sceneType === "video") {
@@ -227,9 +227,15 @@ export default Vue.extend({
       }
 
       if (this.sceneType === "component" && withTimer) {
-        this.sceneTimer = setTimeout(() => {
-          this.handleSceneEnded();
-        }, this.scene.lengthSeconds * 1000);
+        let ticks = 0;
+
+        this.sceneTimer = setInterval(() => {
+          this.updateCurrentTime(++ticks);
+
+          if (ticks === this.scene.lengthSeconds) {
+            this.handleSceneEnded();
+          }
+        }, 1000);
       }
 
       this.playing = false;
