@@ -26,6 +26,11 @@
       </span>
     </header>
     <main>
+      <div v-if="showTooltip" class="tooltip">
+        <div class="pointer"></div>
+        <p>Use this 👆 bar to play around with the API endpoint yourself.</p>
+        <a @click="showTooltip = false">Continue the video</a>
+      </div>
       <p v-if="loading" style="color: white">loading...</p>
       <img v-else style="max-height: 400px" :src="imageSrc" />
     </main>
@@ -48,6 +53,7 @@ export default {
       imageSrc:
         "https://images.unsplash.com/photo-1555170629-9240c8e7df1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMDU4MTh8MHwxfHNlYXJjaHw3fHxzbWlsZXxlbnwwfDB8fA&ixlib=rb-1.2.1&q=80&w=1080",
       loading: false,
+      showTooltip: true,
     };
   },
   methods: {
@@ -164,5 +170,35 @@ main {
   align-items: center;
   justify-content: center;
   padding: 1em;
+  position: relative;
+}
+.tooltip {
+  position: absolute;
+  left: 36%;
+  top: 5px;
+  border-radius: 3px;
+  color: black;
+  background: white;
+  padding: 0.5em 1em 1em 1em;
+  width: 255px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 10px rgba(0, 20, 93, 0.07);
+  font-size: 12pt;
+}
+.tooltip > a {
+  color: #2d6ae1;
+  margin-top: 1em;
+  font-weight: 500;
+}
+.pointer {
+  width: 10px;
+  height: 10px;
+  background: white;
+  transform: rotate(45deg);
+  position: relative;
+  margin: 0 auto;
+  top: -13px;
 }
 </style>
