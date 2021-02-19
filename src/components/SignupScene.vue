@@ -6,7 +6,7 @@
       <p v-if="!submitted">Want to get notified about my next tutorial video?</p>
       <h2 v-if="submitted">I'll keep you posted 👍!</h2>
       <form v-else v-on:submit.prevent>
-        <input @keyup.enter="trySubmit" :class="{ invalid: !isValid}" type="email" placeholder="Your email" v-model="email">
+        <input @keyup.enter="trySubmit" :class="{ invalid: triedSubmitting && !isValid }" type="email" placeholder="Your email" v-model="email">
         <a @click="trySubmit" class="btn">Submit</a>
       </form>
     </main>
@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       email: '',
+      triedSubmitting: false,
       submitted: false,
     };
   },
@@ -36,6 +37,8 @@ export default {
   },
   methods: {
     async trySubmit() {
+      this.triedSubmitting = true;
+
       if (this.isValid) {
         this.submitted = true;
       } 
