@@ -64,7 +64,7 @@ export default {
     background-color: white;
   }
   .progress-bar-inner {
-    height: 2px;
+    height: 4px;
     background-color: #74A3FF;
   }
   header {

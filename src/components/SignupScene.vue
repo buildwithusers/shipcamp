@@ -17,11 +17,12 @@
 import Scene from './Scene';
 import { ChevronDownIcon } from 'vue-feather-icons';
 import axios from 'axios';
+import VTooltip from 'v-tooltip'
 
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default {
-  components: { Scene, ChevronDownIcon },
+  components: { Scene, ChevronDownIcon, VTooltip},
   data() {
     return {
       email: '',
