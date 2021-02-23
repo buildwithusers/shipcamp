@@ -55,9 +55,9 @@
       </p>
     </header>
 
-    <nav id="scenes" class="flex flex-wrap -mx-2">
+    <nav id="scenes" class="flex -mx-2">
       <li
-        class="px-2 my-2 w-1/6 list-none"
+        class="px-2 my-2 list-none"
         v-for="sceneNo in totalScenes"
         :key="sceneNo"
       >
@@ -96,16 +96,18 @@ const SCENES = [
   },
   {
     type: "video",
-    src: "https://stackedtv-assets.s3.amazonaws.com/scenes/2-openweathermap-scene.mp4",
+    src:
+      "https://stackedtv-assets.s3.amazonaws.com/scenes/2-openweathermap-scene.mp4",
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-03-unsplash-api.jpg",
     lengthSeconds: 136,
   },
   {
     type: "video",
-    src: "https://stackedtv-assets.s3.amazonaws.com/scenes/3-unsplash-intro-scene.mp4",
+    src:
+      "https://stackedtv-assets.s3.amazonaws.com/scenes/3-unsplash-intro-scene.mp4",
     thumb:
-        "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-04-unsplash-api-handson.jpg",
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-04-unsplash-api-handson.jpg",
     lengthSeconds: 105,
   },
   {
@@ -234,9 +236,9 @@ export default Vue.extend({
       }
 
       if (
-        this.sceneType === "component"
-        && withTimer
-        && this.scene.lengthSeconds !== Infinity
+        this.sceneType === "component" &&
+        withTimer &&
+        this.scene.lengthSeconds !== Infinity
       ) {
         let ticks = 0;
 
