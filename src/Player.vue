@@ -303,7 +303,7 @@ export default Vue.extend({
       }
 
       this.playing = withTimer;
-      this.updateCurrentTime();
+      this.updateCurrentTime(elapsedSceneTime);
     },
   },
   mounted() {
