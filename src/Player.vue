@@ -55,9 +55,9 @@
       </p>
     </header>
 
-    <nav id="scenes" class="flex -mx-2">
+    <nav ref="scenes" id="scenes" class="flex -mx-2 overflow-x-auto relative">
       <li
-        class="px-2 my-2 list-none"
+        class="px-2 my-2 list-none w-1/5 overflow-hidden flex-none"
         v-for="sceneNo in totalScenes"
         :key="sceneNo"
       >
@@ -68,6 +68,10 @@
             :src="SCENES[sceneNo - 1].thumb"
         /></a>
       </li>
+      <div
+        id="scenes-overflow-indicator"
+        class="flex-none bg-gradient-to-r from-transparent to-gray-50 opacity-50 w-6 sticky right-0 top-0 bottom-0 pointer-events-none"
+      />
     </nav>
   </div>
 </template>
@@ -226,6 +230,7 @@ export default Vue.extend({
       this.sceneIndex = index;
       clearInterval(this.sceneTimer);
       this.sceneTimer = null;
+      this.$refs.scenes.children[index].scrollIntoView({ behavior: "smooth" });
 
       if (this.sceneType === "video") {
         this.$nextTick(() => {
