@@ -82,10 +82,10 @@ import PlayPauseButton from "./components/PlayPauseButton.vue";
 const SCENES = [
   {
     type: "video",
-    src: "scenes/sample-scene-girl-book.mp4",
+    src: "https://stackedtv-assets.s3.amazonaws.com/scenes/1-demo-scene.mp4",
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-01-intro-show-result.jpg",
-    lengthSeconds: 8,
+    lengthSeconds: 22,
   },
   {
     type: "component",
@@ -96,10 +96,17 @@ const SCENES = [
   },
   {
     type: "video",
-    src: "scenes/sample-scene-forrest.mp4",
+    src: "https://stackedtv-assets.s3.amazonaws.com/scenes/2-openweathermap-scene.mp4",
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-03-unsplash-api.jpg",
-    lengthSeconds: 10,
+    lengthSeconds: 136,
+  },
+  {
+    type: "video",
+    src: "https://stackedtv-assets.s3.amazonaws.com/scenes/3-unsplash-intro-scene.mp4",
+    thumb:
+        "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-04-unsplash-api-handson.jpg",
+    lengthSeconds: 105,
   },
   {
     type: "component",
@@ -110,10 +117,10 @@ const SCENES = [
   },
   {
     type: "video",
-    src: "scenes/sample-scene-street.mp4",
+    src: "https://stackedtv-assets.s3.amazonaws.com/scenes/4-wrap-up-scene.mp4",
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-05-show-result-thank.jpg",
-    lengthSeconds: 15,
+    lengthSeconds: 96,
   },
   {
     type: "component",
