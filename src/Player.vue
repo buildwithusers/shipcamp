@@ -119,7 +119,7 @@ const SCENES = [
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-04-unsplash-api-handson.jpg",
     component: EndpointScene,
-    lengthSeconds: 9,
+    lengthSeconds: 15,
   },
   {
     type: "video",
