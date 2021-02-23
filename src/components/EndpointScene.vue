@@ -53,7 +53,7 @@ export default {
       imageSrc:
         "https://images.unsplash.com/photo-1555170629-9240c8e7df1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMDU4MTh8MHwxfHNlYXJjaHw3fHxzbWlsZXxlbnwwfDB8fA&ixlib=rb-1.2.1&q=80&w=1080",
       loading: false,
-      showTooltip: true,
+      showTooltip: false,
     };
   },
   methods: {
@@ -71,6 +71,10 @@ export default {
       }
     },
   },
+  mounted() {
+    setTimeout(() => { this.showTooltip = true; }, 500);
+    setTimeout(() => { this.showTooltip = false; }, 4000);
+  }
 };
 </script>
 <style scoped>
