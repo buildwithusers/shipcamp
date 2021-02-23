@@ -45,17 +45,20 @@
         </time>
         <PlayPauseButton :playing="playing" @click="togglePlayPause" />
         <span id="spacer" class="flex-1" />
+
+        <div
+          ref="scrubbar"
+          id="scrub-bar"
+          class="absolute bottom-0 left-0 right-0 overflow-hidden h-2 transform hover:scale-y-150 text-xs flex bg-gray-100 bg-opacity-20 transition-all cursor-pointer"
+          @mousedown="handleScrubBarClick"
+        >
+          <div
+            :style="{ width: elapsedTimePercentage + '%' }"
+            class="bg-blue-500 bg-opacity-50 transition-all"
+          ></div>
+        </div>
       </nav>
     </figure>
-
-    <div class="relative pt-1 cursor-pointer">
-      <div ref="scrubbar" class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
-        <div
-          :style="{'width': elapsedTimePercentage + '%'}"
-          class="scrub-bar shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"
-        ></div>
-      </div>
-    </div>
 
     <header id="titlebar" class="my-4 text-left">
       <h1 class="">Build an Unsplash-powered weather app</h1>
@@ -185,7 +188,7 @@ export default Vue.extend({
     },
     elapsedTimePercentage() {
       return (this.currentTimeSeconds / this.totalLengthSeconds) * 100;
-    }
+    },
   },
   methods: {
     togglePlayPause(e) {
@@ -238,8 +241,13 @@ export default Vue.extend({
     },
     handleScrubBarClick(e) {
       const progressPercentage = e.layerX / this.$refs.scrubbar.offsetWidth;
-      const elapsedTimeSeconds = Math.round(progressPercentage * this.totalLengthSeconds);
-      const { sceneIndex, elapsedSceneTime } = this.getSceneWithElapsedSceneTime(elapsedTimeSeconds);
+      const elapsedTimeSeconds = Math.round(
+        progressPercentage * this.totalLengthSeconds
+      );
+      const {
+        sceneIndex,
+        elapsedSceneTime,
+      } = this.getSceneWithElapsedSceneTime(elapsedTimeSeconds);
       this.loadScene(sceneIndex, false, elapsedSceneTime);
     },
     getSceneWithElapsedSceneTime(elapsedTimeSeconds) {
@@ -303,12 +311,7 @@ export default Vue.extend({
       // Doesn't work in some browsers as they block autoplay before user interaction
       this.$refs.video.play();
     }
-
-    this.$refs.scrubbar.addEventListener('click', this.handleScrubBarClick);
   },
-  beforeDestroy() {
-    this.$refs.scrubbar.removeEventListener('click', this.handleScrubBarClick);
-  }
 });
 </script>
 
@@ -399,5 +402,9 @@ nav#scenes img[active] {
     rgba(255, 255, 255, 0),
     rgba(249, 250, 251, 1)
   );
+}
+
+#scrub-bar:hover > * {
+  --tw-bg-opacity: 1;
 }
 </style>
