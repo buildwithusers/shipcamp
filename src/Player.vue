@@ -70,7 +70,7 @@
       </li>
       <div
         id="scenes-overflow-indicator"
-        class="flex-none bg-gradient-to-r from-transparent to-gray-50 opacity-50 w-6 sticky right-0 top-0 bottom-0 pointer-events-none"
+        class="flex-none w-10 sticky right-0 top-0 bottom-0 pointer-events-none"
       />
     </nav>
   </div>
@@ -343,5 +343,13 @@ nav#controls {
 nav#scenes img[active] {
   @apply border-blue-500 border-4 shadow-lg;
   padding: 2px;
+}
+
+#scenes-overflow-indicator {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(249, 250, 251, 1)
+  );
 }
 </style>
