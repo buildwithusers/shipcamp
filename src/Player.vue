@@ -115,7 +115,7 @@ const SCENES = [
     src:
       "https://stackedtv-assets.s3.amazonaws.com/scenes/2-openweathermap-scene.mp4",
     thumb:
-      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-03-unsplash-api.jpg",
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-03-openweathermap.jpg",
     lengthSeconds: 136,
   },
   {
@@ -123,13 +123,13 @@ const SCENES = [
     src:
       "https://stackedtv-assets.s3.amazonaws.com/scenes/3-unsplash-intro-scene.mp4",
     thumb:
-      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-04-unsplash-api-handson.jpg",
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-04-unsplash-intro.jpg",
     lengthSeconds: 105,
   },
   {
     type: "component",
     thumb:
-      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-04-unsplash-api-handson.jpg",
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-05-unsplash-api.jpg",
     component: EndpointScene,
     lengthSeconds: 15,
   },
@@ -137,14 +137,14 @@ const SCENES = [
     type: "video",
     src: "https://stackedtv-assets.s3.amazonaws.com/scenes/4-wrap-up-scene.mp4",
     thumb:
-      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-05-show-result-thank.jpg",
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-06-show-result.jpg",
     lengthSeconds: 96,
   },
   {
     type: "component",
     component: SignupScene,
     thumb:
-      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-06-email-b.jpg",
+      "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-07-email.jpg",
     lengthSeconds: Infinity,
     hideTimer: true,
   },
