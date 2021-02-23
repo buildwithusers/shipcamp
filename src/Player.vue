@@ -256,7 +256,7 @@ export default Vue.extend({
         }, 1000);
       }
 
-      this.playing = false;
+      this.playing = withTimer;
       this.updateCurrentTime();
     },
   },
