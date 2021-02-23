@@ -54,7 +54,7 @@
         >
           <div
             :style="{ width: elapsedTimePercentage + '%' }"
-            class="bg-blue-500 bg-opacity-50 transition-all"
+            class="w-0 bg-blue-500 bg-opacity-50"
           ></div>
         </div>
       </nav>
@@ -371,11 +371,6 @@ video:focus {
   animation: scenetimer calc(var(--scenetimer-duration) * 1s) linear;
 }
 
-.scrub-bar {
-  width: 0%;
-  background-color: #74a3ff;
-}
-
 #component-container > * {
   width: 100%;
   height: 100%;
@@ -402,6 +397,14 @@ nav#scenes img[active] {
     rgba(255, 255, 255, 0),
     rgba(249, 250, 251, 1)
   );
+}
+
+#scrub-bar {
+  transition: background 230ms ease, transform 150ms ease-in-out;
+}
+
+#scrub-bar > * {
+  transition: width 180ms ease-out, background 220ms ease;
 }
 
 #scrub-bar:hover > * {
