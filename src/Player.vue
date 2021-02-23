@@ -108,7 +108,7 @@ const SCENES = [
     thumb:
       "https://stackedtv-assets.s3.amazonaws.com/thumbs/thumb-slide-02-play-with-demo.jpg",
     component: DemoScene,
-    lengthSeconds: 9,
+    lengthSeconds: 12,
   },
   {
     type: "video",
