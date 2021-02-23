@@ -45,6 +45,18 @@
         </time>
         <PlayPauseButton :playing="playing" @click="togglePlayPause" />
         <span id="spacer" class="flex-1" />
+
+        <div
+          ref="scrubbar"
+          id="scrub-bar"
+          class="absolute bottom-0 left-0 right-0 overflow-hidden h-2 transform hover:scale-y-150 text-xs flex bg-gray-100 bg-opacity-20 transition-all cursor-pointer"
+          @mousedown="handleScrubBarClick"
+        >
+          <div
+            :style="{ width: elapsedTimePercentage + '%' }"
+            class="w-0 bg-blue-500 bg-opacity-50"
+          ></div>
+        </div>
       </nav>
     </figure>
 
@@ -174,6 +186,9 @@ export default Vue.extend({
     currentTimePretty() {
       return prettySeconds(this.currentTimeSeconds);
     },
+    elapsedTimePercentage() {
+      return (this.currentTimeSeconds / this.totalLengthSeconds) * 100;
+    },
   },
   methods: {
     togglePlayPause(e) {
@@ -224,8 +239,38 @@ export default Vue.extend({
 
       this.loadScene(this.sceneIndex + 1);
     },
-    loadScene(index, withTimer = true) {
+    handleScrubBarClick(e) {
+      const progressPercentage = e.layerX / this.$refs.scrubbar.offsetWidth;
+      const elapsedTimeSeconds = Math.round(
+        progressPercentage * this.totalLengthSeconds
+      );
+      const {
+        sceneIndex,
+        elapsedSceneTime,
+      } = this.getSceneWithElapsedSceneTime(elapsedTimeSeconds);
+      this.loadScene(sceneIndex, false, elapsedSceneTime);
+    },
+    getSceneWithElapsedSceneTime(elapsedTimeSeconds) {
+      let elapsedSceneTime = elapsedTimeSeconds;
+
+      for (let i = 0; i < SCENES.length; i++) {
+        if (elapsedSceneTime < SCENES[i].lengthSeconds) {
+          return { sceneIndex: i, elapsedSceneTime: elapsedSceneTime };
+        }
+
+        elapsedSceneTime -= SCENES[i].lengthSeconds;
+      }
+
+      throw "Scene does not exist";
+    },
+    loadScene(index, withTimer = true, elapsedSceneTime = 0) {
       if (index >= SCENES.length) throw "Scene does not exist";
+
+      if (this.sceneIndex === index && this.sceneType === "video") {
+        this.$refs.video.currentTime = elapsedSceneTime;
+        this.updateCurrentTime(elapsedSceneTime);
+        return;
+      }
 
       this.sceneIndex = index;
       clearInterval(this.sceneTimer);
@@ -235,6 +280,7 @@ export default Vue.extend({
       if (this.sceneType === "video") {
         this.$nextTick(() => {
           this.$refs.video.load();
+          this.$refs.video.currentTime = elapsedSceneTime;
           this.$refs.video.play();
         });
         return;
@@ -351,5 +397,17 @@ nav#scenes img[active] {
     rgba(255, 255, 255, 0),
     rgba(249, 250, 251, 1)
   );
+}
+
+#scrub-bar {
+  transition: background 230ms ease, transform 150ms ease-in-out;
+}
+
+#scrub-bar > * {
+  transition: width 180ms ease-out, background 220ms ease;
+}
+
+#scrub-bar:hover > * {
+  --tw-bg-opacity: 1;
 }
 </style>
